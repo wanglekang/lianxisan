@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="fonts/fonts/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+</head>
+
+<body>
+    <div class="mui-content">
+        <div class="mui-header">
+            <div class="header">
+                <span>年花费(元)</span>
+                <div>
+                    <!-- <span class="h_month"> -->
+                    <button id='showUserPicker' class="mui-btn mui-btn-block" type='button'>
+						<span class="nian">年</span>
+						<i class="iconfont icon-angle-down"></i>
+						</button>
+                    <div id='userResult' class="ui-alert"></div>
+                    <!-- <span class="year">年</span>
+					<i class="iconfont icon-angle-down"></i></span> -->
+                    <button id='demo6' data-options='{"type":"month"}' class="btn mui-btn mui-btn-block">
+						<span class="mons">2018</span>
+						<i class="iconfont icon-angle-down"></i>
+						</button>
+                </div>
+            </div>
+            <div class="mh_number">
+                <b>8125</b>
+                <b>.00</b>
+            </div>
+            <div class="mh_footer">
+                <span>
+					年收入
+					<b>1000.00</b>
+				</span>
+                <span>
+					设置预算
+					<i class="iconfont icon-set"></i>
+				</span>
+
+            </div>
+        </div>
+        <div class="mui-bar-body">
+            <div class="nav">
+                <i class="iconfont icon-wode"></i>
+                <ul class="n_cont">
+                    <li>账单</li>
+                    <li>图表</li>
+                </ul>
+                <i class="iconfont icon-fangdajing"></i>
+            </div>
+            <div class="subnav">
+                <span>
+					<i class="iconfont icon-gengduo-2"></i>
+					<b>10月</b>
+				</span>
+                <dl>
+                    <dt>花费</dt>
+                    <dd>8125.00</dd>
+                </dl>
+                <dl>
+                    <dt>收入</dt>
+                    <dd>1000.00</dd>
+                </dl>
+                <dl>
+                    <dt>结余</dt>
+                    <dd>-7125.00</dd>
+                </dl>
+                <i class="iconfont icon-chevron-thin-up"></i>
+
+            </div>
+
+            <div id='result' class="ui-alert"></div>
+            <div class="answer"></div>
+        </div>
+        <div class="mui-bar-footer">
+            <div class="key">
+                <table border="1">
+                    <tr>
+                        <td class="table">7</td>
+                        <td class="table">8</td>
+                        <td class="table">9</td>
+                        <td class="add">+</td>
+                        <td class="reduce">-</td>
+                    </tr>
+                    <tr>
+                        <td class="table">4</td>
+                        <td class="table">5</td>
+                        <td class="table">6</td>
+                        <td class="ride">×</td>
+                        <td class="dive">÷</td>
+                    </tr>
+                    <tr>
+                        <td class="table">1</td>
+                        <td class="table">2</td>
+                        <td class="table">3</td>
+                        <td colspan="2" rowspan="2" class="success">
+                            完成
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table">.</td>
+                        <td class="table">0</td>
+                        <td class="delete">delete</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="js/mui.picker.min.js"></script>
+    <script src="js/mui.poppicker.js"></script>
+    <script src="js/city.data.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/years.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/style.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+        (function($) {
+            $.init();
+            var result = $('#result')[0];
+            var btns = $('.btn');
+            var mons = document.querySelector(".mons");
+            var nian = document.querySelector(".nian");
+            btns.each(function(i, btn) {
+                btn.addEventListener('tap', function() {
+                    var _self = this;
+                    if (_self.picker) {
+                        _self.picker.show(function(rs) {
+                            result.innerText = '选择结果:' + rs.text;
+                            _self.picker.dispose();
+                            _self.picker = null;
+                        });
+                    } else {
+
+                        var optionsJson = this.getAttribute('data-options') || '{}';
+                        var options = JSON.parse(optionsJson);
+                        var id = this.getAttribute('id');
+
+                        _self.picker = new $.DtPicker(options);
+                        _self.picker.show(function(rs) {
+
+                            // years.innerText = rs.text.slice(0,4);
+
+                            mons.innerText = rs.text.slice(0, 4);
+                            // mons.innerText = rs.text;
+
+
+                            _self.picker.dispose();
+                            _self.picker = null;
+                        });
+                    }
+
+                }, false);
+            });
+
+
+        })(mui);
+    </script>
+</body>
+
+</html>
